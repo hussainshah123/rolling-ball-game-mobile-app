@@ -1,4 +1,8 @@
 {
   "name": "rollingball",
-  "displayName": "rollingball"
+  "displayName": "rollingball",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9318693466829633~7170062476",
+    "ios_app_id": "ca-app-pub-9318693466829633~7170062476"
+  }
 }

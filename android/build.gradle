@@ -19,3 +19,18 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// play-services-ads 25.x (pulled in by react-native-google-mobile-ads) ships
+// Kotlin metadata format 2.3, newer than what kotlinVersion=2.1.20 can parse.
+// Bumping kotlinVersion instead breaks RN 0.86's prebuilt gradle-plugin.jar,
+// which is compiled against an older Kotlin Gradle Plugin DSL (it calls a
+// jvmDefault accessor Kotlin 2.2+ removed). Skipping the metadata check is
+// safe here: we only consume play-services-ads' JVM/Android API, not any
+// Kotlin-multiplatform expect/actual surface the version bump affects.
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        compilerOptions {
+            freeCompilerArgs.add("-Xskip-metadata-version-check")
+        }
+    }
+}

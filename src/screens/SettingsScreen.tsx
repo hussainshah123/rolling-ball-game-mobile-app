@@ -68,6 +68,10 @@ export default function SettingsScreen({ navigation }: Props) {
           Rolling Ball Adventure · v1.0{'\n'}Swipe to steer · Tap to jump
         </Text>
       </View>
+      <View style={styles.spacer} />
+      <View style={{ paddingBottom: Math.max(insets.bottom, 8) }}>
+        <AdBanner />
+      </View>
     </View>
   );
 }
@@ -80,6 +84,9 @@ const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 16,
     paddingTop: 8,
+  },
+  spacer: {
+    flex: 1,
   },
   row: {
     backgroundColor: UI.card,
