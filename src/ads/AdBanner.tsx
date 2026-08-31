@@ -8,7 +8,7 @@ import {
 
 // Real banner unit from AdMob console. Swapped for Google's test unit in
 // dev builds so local testing never risks the account on invalid traffic.
-const PROD_BANNER_UNIT_ID = 'ca-app-pub-9318693466829633/4390292793';
+const PROD_BANNER_UNIT_ID = 'ca-app-pub-4687548663016677/9430415800';
 const BANNER_UNIT_ID = __DEV__ ? TestIds.BANNER : PROD_BANNER_UNIT_ID;
 
 /**

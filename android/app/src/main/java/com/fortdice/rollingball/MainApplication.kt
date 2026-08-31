@@ -1,4 +1,4 @@
-package com.rollingball
+package com.fortdice.rollingball
 
 import android.app.Application
 import com.facebook.react.PackageList

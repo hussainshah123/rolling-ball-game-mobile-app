@@ -1,4 +1,4 @@
-package com.rollingball
+package com.fortdice.rollingball
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
