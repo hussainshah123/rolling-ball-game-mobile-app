@@ -17,6 +17,7 @@ import { RootStackParamList } from '../navigation/types';
 import { BALLS, LEVELS_PER_WORLD, TOTAL_LEVELS, WORLDS } from '../theme/theme';
 import { useGame } from '../state/GameContext';
 import { SoundManager } from '../audio/SoundManager';
+import { GameOverInterstitial } from '../ads/GameOverInterstitial';
 import { generateLevel, levelIndex, starsForRun } from './levelGen';
 import {
   BALL_SIZE,
@@ -136,6 +137,10 @@ export default function GameScreen({ route, navigation }: Props) {
     setPhase(s);
   }, []);
 
+  useEffect(() => {
+    GameOverInterstitial.preload();
+  }, []);
+
   // reset engine on retry / level change
   useEffect(() => {
     eng.current = {
@@ -225,7 +230,10 @@ export default function GameScreen({ route, navigation }: Props) {
       const score =
         Math.floor(e.z / 10) + e.coinsCollected * 10;
       setHudScore(score);
-      later(() => setResult({ stars: 0, coins: e.coinsCollected, score }), 950);
+      later(() => {
+        setResult({ stars: 0, coins: e.coinsCollected, score });
+        GameOverInterstitial.onGameOver();
+      }, 950);
     },
     [anim, later],
   );
@@ -255,7 +263,7 @@ export default function GameScreen({ route, navigation }: Props) {
       if (e.status === 'running') {
         e.runTime += dt;
         const progress = e.z / levelData.length;
-        e.z += ((levelData.speed * dt) / 1000) * (1 + 0.1 * progress);
+        e.z += ((levelData.speed * dt) / 1000) * (1 + 0.06 * progress);
 
         // smooth lane steering
         e.lanePos += (e.laneTarget - e.lanePos) * Math.min(1, (dt / 1000) * 13);
@@ -324,7 +332,7 @@ export default function GameScreen({ route, navigation }: Props) {
           switch (o.type) {
             case 'gap':
               if (
-                Math.abs(dz) < o.depth / 2 + 8 &&
+                Math.abs(dz) < o.depth / 2 &&
                 Math.abs(e.lanePos - o.lane) < 0.5 &&
                 h < 6
               ) {
@@ -333,9 +341,9 @@ export default function GameScreen({ route, navigation }: Props) {
               break;
             case 'spinner':
               if (
-                Math.abs(dz) < o.depth / 2 + 18 &&
-                Math.abs(e.lanePos - o.lane) < 0.6 &&
-                h < 34
+                Math.abs(dz) < o.depth / 2 + 10 &&
+                Math.abs(e.lanePos - o.lane) < 0.55 &&
+                h < 28
               ) {
                 die('crash');
               }
@@ -348,25 +356,25 @@ export default function GameScreen({ route, navigation }: Props) {
               ) {
                 const c = (e.contact.get(o.id) ?? 0) + dt;
                 e.contact.set(o.id, c);
-                if (c > 180) {
+                if (c > 280) {
                   die('fall');
                 }
               }
               break;
             case 'hammer':
               if (
-                Math.abs(dz) < o.depth / 2 + 22 &&
-                Math.abs(sweepX - ballPx) < 50 &&
-                h < 30
+                Math.abs(dz) < o.depth / 2 + 14 &&
+                Math.abs(sweepX - ballPx) < 42 &&
+                h < 26
               ) {
                 die('crash');
               }
               break;
             case 'movingBlock':
               if (
-                Math.abs(dz) < o.depth / 2 + 24 &&
-                Math.abs(sweepX - ballPx) < 60 &&
-                h < 55
+                Math.abs(dz) < o.depth / 2 + 16 &&
+                Math.abs(sweepX - ballPx) < 52 &&
+                h < 48
               ) {
                 die('crash');
               }

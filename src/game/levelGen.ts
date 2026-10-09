@@ -32,10 +32,10 @@ export function generateLevel(world: number, level: number): LevelData {
   const rng = makeRng(1337 + idx * 7919);
 
   const length = 8200 + world * 1400 + level * 550;
-  const speed = Math.min(720, 330 + world * 42 + level * 16);
+  const speed = Math.min(600, 285 + world * 32 + level * 12);
 
   const pool = OBSTACLE_POOL[Math.min(world, OBSTACLE_POOL.length - 1)];
-  const spacingBase = Math.max(560, 980 - world * 60 - level * 28);
+  const spacingBase = Math.max(720, 1150 - world * 50 - level * 22);
 
   const obstacles: Obstacle[] = [];
   const coins: Coin[] = [];
@@ -48,7 +48,7 @@ export function generateLevel(world: number, level: number): LevelData {
     const lane = Math.floor(rng() * 3);
     const depth =
       type === 'gap'
-        ? 150 + Math.floor(rng() * 60)
+        ? 130 + Math.floor(rng() * 45)
         : type === 'fallingPlatform'
         ? 170
         : type === 'spinner'
@@ -60,7 +60,7 @@ export function generateLevel(world: number, level: number): LevelData {
       z,
       lane: type === 'hammer' || type === 'movingBlock' ? 1 : lane,
       depth,
-      period: 1500 + Math.floor(rng() * 900) - world * 60,
+      period: 1800 + Math.floor(rng() * 900) - world * 50,
       phase: rng(),
     });
 

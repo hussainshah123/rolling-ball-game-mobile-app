@@ -145,7 +145,7 @@ export default function HomeScreen({ navigation }: Props) {
         {game.stars.reduce((a, b) => a + b, 0)}
       </Text>
       <View style={{ paddingBottom: Math.max(insets.bottom, 8) }}>
-        {/* <AdBanner /> */}
+        <AdBanner />
       </View>
     </View>
   );
