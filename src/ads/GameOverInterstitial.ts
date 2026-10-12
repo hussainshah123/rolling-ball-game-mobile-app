@@ -6,7 +6,7 @@ import {
 
 // TODO: paste the real interstitial unit from the AdMob console. Until it is
 // set, release builds simply never show an interstitial.
-const PROD_INTERSTITIAL_UNIT_ID = '';
+const PROD_INTERSTITIAL_UNIT_ID = 'ca-app-pub-4687548663016677/4774233300';
 const UNIT_ID = __DEV__ ? TestIds.INTERSTITIAL : PROD_INTERSTITIAL_UNIT_ID;
 
 /** Show an interstitial on every Nth game over. */
